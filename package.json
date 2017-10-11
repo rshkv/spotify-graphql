@@ -1,0 +1,26 @@
+{
+  "name": "spotify-graphql",
+  "version": "0.0.0",
+  "description": "GraphQL server for Spotify's API",
+  "main": "index.js",
+  "dependencies": {
+    "@types/express": "^4.0.37",
+    "@types/express-graphql": "0.0.34",
+    "@types/graphql": "^0.11.5",
+    "express": "^4.16.2",
+    "express-graphql": "^0.6.11",
+    "graphql": "^0.11.7",
+    "graphql-tools": "^2.4.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node index.js"
+  },
+  "keywords": [
+    "node",
+    "graphql",
+    "spotify"
+  ],
+  "author": "Willi Raschkowski",
+  "license": "ISC"
+}
