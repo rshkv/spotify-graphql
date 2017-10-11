@@ -3,13 +3,12 @@ import resolvers from "./resolvers";
 
 const typeDefs = `
 	type Query {
-		search(q: String!, type: [SearchType!]): [String!]
-		artist(id: String!): ArtistFull
+		search(q: String!, type: [SearchType!]): SearchResult!
+		artist(id: String!): ArtistFull!
 		playlist(user_id: String!, playlist_id: String!): PlaylistFull!
 	}
 
 	type AlbumSimplified {
-		# The type of the album: one of "album", "single", or "compilation".
 		album_type: String!
 		artists: [ArtistSimplified!]!
 		available_markets: [String!]!
@@ -23,7 +22,12 @@ const typeDefs = `
 	}
 
 	type ArtistSimplified {
+		external_urls: ExternalUrl!
+		href: String!
+		id: String!
 		name: String!
+		type: String!
+		uri: String!
 	}
 
 	type ArtistFull {
@@ -86,6 +90,21 @@ const typeDefs = `
 		uri: String!
 	}
 
+	type PlaylistSimplified {
+		collaborative: Boolean!
+		external_urls: ExternalUrl!
+		href: String!
+		id: String!
+		images: [Image!]!
+		name: String!
+		owner: UserPublic!
+		public: Boolean
+		snapshot_id: String!
+		tracks(limit: Int, offset: Int): [PlaylistTrack!]!
+		type: String!
+		uri: String!
+	}
+
 	type PlaylistTrack {
 		added_at: String
 		added_by: UserPublic
@@ -94,10 +113,10 @@ const typeDefs = `
 	}
 
 	type SearchResult {
-		albums: [String]!
-		artists: [String]!
-		playlists: [String]!
-		tracks: [String]!
+		albums: [AlbumSimplified]!
+		artists: [ArtistFull]!
+		playlists: [PlaylistSimplified]!
+		tracks: [TrackFull]!
 	}
 
 	enum SearchType {

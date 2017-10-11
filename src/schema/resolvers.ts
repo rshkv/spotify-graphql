@@ -24,18 +24,16 @@ export default {
         },
 
         playlist: async (root, { user_id, playlist_id }, { spotifyApi }) => {
-            const res = (await spotifyApi.getPlaylist(user_id, playlist_id)).body;
-            return res;
+            return (await spotifyApi.getPlaylist(user_id, playlist_id)).body;
         },
 
         search: async (root, { q, type }, { spotifyApi }) => {
             const searchResponse = await spotifyApi.search(q, type, { limit: 1 });
             const items = _.mapValues(searchResponse.body, (v) => v.items);
-            const searchResult = {
+            return {
                 albums: [], artists: [], playlists: [], tracks: [],
                 ...items,
             };
-            return ["this", "is", "a", "test"];
         },
 
     },
