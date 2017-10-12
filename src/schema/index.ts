@@ -4,8 +4,9 @@ import resolvers from "./resolvers";
 const typeDefs = `
 	type Query {
 		search(q: String!, type: [SearchType!]): SearchResult!
-		artist(id: String!): ArtistFull!
-		playlist(user_id: String!, playlist_id: String!): PlaylistFull!
+		artist(id: ID!): ArtistFull!
+		artists(ids: [ID!]!): [ArtistFull]!
+		playlist(user_id: ID!, playlist_id: ID!): PlaylistFull!
 	}
 
 	type AlbumSimplified {

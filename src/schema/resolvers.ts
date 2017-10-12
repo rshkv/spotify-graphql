@@ -23,6 +23,10 @@ export default {
             return (await spotifyApi.getArtist(id)).body;
         },
 
+        artists: async (root, { ids }, { spotifyApi }) => {
+            return (await spotifyApi.getArtists(ids)).body.artists;
+        },
+
         playlist: async (root, { user_id, playlist_id }, { spotifyApi }) => {
             return (await spotifyApi.getPlaylist(user_id, playlist_id)).body;
         },
