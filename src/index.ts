@@ -2,11 +2,12 @@ import * as express from "express";
 import * as graphqlHTTP from "express-graphql";
 import * as SpotifyWebApi from "spotify-web-api-node";
 import { clientId, clientSecret } from "./apiConfig";
+import buildLoaders from "./dataloaders";
 import schema from "./schema";
 
 const PORT = 4000;
 const app = express();
-const spotifyApi = new SpotifyWebApi({
+const api = new SpotifyWebApi({
     clientId,
     clientSecret,
     redirectUri: `https://localhost:${PORT}/login`,
@@ -14,14 +15,14 @@ const spotifyApi = new SpotifyWebApi({
 
 const startServer = async () => {
     // Retrieve and set access token
-    const accessToken = (await spotifyApi.clientCredentialsGrant())
+    const accessToken = (await api.clientCredentialsGrant())
         .body
         .access_token;
-    spotifyApi.setAccessToken(accessToken);
+    api.setAccessToken(accessToken);
 
     // Setup graphql handler
     app.use("/graphql", graphqlHTTP({
-        context: { spotifyApi },
+        context: { api, ...buildLoaders(api) },
         graphiql: true,
         schema,
     }));

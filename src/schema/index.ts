@@ -24,11 +24,11 @@ const typeDefs = `
 
 	type ArtistSimplified {
 		external_urls: ExternalUrl!
-		href: String!
-		id: String!
+		href: String
+		id: String
 		name: String!
 		type: String!
-		uri: String!
+		uri: String
 	}
 
 	type ArtistFull {
@@ -87,6 +87,8 @@ const typeDefs = `
 		public: Boolean
 		snapshot_id: String!
 		tracks(limit: Int, offset: Int): [PlaylistTrack!]!
+		# Total number of tracks in playlist.
+		total_tracks: Int
 		type: String!
 		uri: String!
 	}
@@ -136,13 +138,13 @@ const typeDefs = `
 		explicit: Boolean!
 		external_ids: ExternalId!
 		external_urls: ExternalUrl!
-		href: String!
-		id: String!
+		href: String
+		id: String
 		is_playable: Boolean
 		linked_from: TrackLink
 		name: String!
 		popularity: Int!
-		preview_url: String!
+		preview_url: String
 		track_number: Int!
 		type: String!
 		uri: String!

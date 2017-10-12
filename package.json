@@ -16,7 +16,9 @@
     "lodash": "^4.17.4",
     "spotify-web-api-node": "^2.5.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "graphql-request": "^1.4.0"
+  },
   "scripts": {
     "test": "node index.js"
   },
