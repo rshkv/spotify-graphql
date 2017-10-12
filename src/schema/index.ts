@@ -86,7 +86,7 @@ const typeDefs = `
 		owner: UserPublic!
 		public: Boolean
 		snapshot_id: String!
-		tracks(limit: Int, offset: Int): [PlaylistTrack!]!
+		tracks(limit: Int = 100, offset: Int = 0): [PlaylistTrack!]!
 		# Total number of tracks in playlist.
 		total_tracks: Int
 		type: String!

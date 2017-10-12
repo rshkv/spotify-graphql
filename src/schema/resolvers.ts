@@ -30,7 +30,7 @@ export default {
 
         total_tracks: (root, data, context) => root.tracks.total,
 
-        tracks: async (root, { limit = 100, offset = 0, all = false }, { api }) => {
+        tracks: async (root, { limit, offset }, { api }) => {
             if (limit === -1) { limit = root.tracks.total - offset; }
 
             if (root.tracks.limit < offset + limit) {
