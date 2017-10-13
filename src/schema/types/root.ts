@@ -14,16 +14,17 @@ export const resolvers = {
 
     Query: {
 
-        artist: async (obj, { id }, { artistLoader }: { artistLoader: DataLoader<string, any> }) => (
+        artist: async (obj, { id }, { artistLoader }: { artistLoader: DataLoader<string, any> }) => ( 
             await artistLoader.load(id)
-        ),
+         ),
 
         artists: async (obj, { ids }, { artistLoader }: { artistLoader: DataLoader<string, any> }) => (
             await artistLoader.loadMany(ids)
         ),
 
-        playlist: async (obj, { user_id, playlist_id }, { api }) => {
-            return (await api.getPlaylist(user_id, playlist_id)).body;
+        playlist: async (obj, args, { playlistLoader }: { playlistLoader: DataLoader<string[], any> }) => {
+            const { user_id, playlist_id } = args;
+            return await playlistLoader.load([user_id, playlist_id]);
         },
 
         search: async (obj, { q, type }, { api }) => {

@@ -30,7 +30,9 @@ export const schema = `
         owner: UserPublic!
         public: Boolean
         snapshot_id: String!
-        tracks(limit: Int, offset: Int): [PlaylistTrack!]!
+        tracks(limit: Int = 100, offset: Int = 0): [PlaylistTrack!]!
+        # Total number of tracks in playlist.
+        total_tracks: Int
         type: String!
         uri: String!
     }
@@ -73,6 +75,28 @@ export const resolvers = {
             if (obj.tracks.limit < offset + limit) {
                 const ownerId = obj.owner.id;
                 const playlistId = obj.id;
+                return await paginatePlaylistTracks(api, ownerId, playlistId, offset, limit);
+            } else {
+                return _.slice(obj.tracks.items, offset, offset + limit);
+            }
+        },
+
+    },
+
+    PlaylistSimplified: {
+
+        total_tracks: (obj, args, context) => obj.tracks.total,
+
+        tracks: async (obj, { limit, offset }, { api, playlistLoader }) => {
+            const ownerId = obj.owner.id;
+            const playlistId = obj.id;
+
+            // Make simplified playlist into full playlist
+            obj = await playlistLoader.load([ownerId, playlistId]);
+
+            if (limit === -1) { limit = obj.tracks.total - offset; }
+
+            if (obj.tracks.limit < offset + limit) {
                 return await paginatePlaylistTracks(api, ownerId, playlistId, offset, limit);
             } else {
                 return _.slice(obj.tracks.items, offset, offset + limit);
