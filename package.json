@@ -14,13 +14,25 @@
     "graphql": "^0.11.7",
     "graphql-tools": "^2.4.0",
     "lodash": "^4.17.4",
+    "spotify-web-api-js": "^0.22.1",
     "spotify-web-api-node": "^2.5.0"
   },
   "devDependencies": {
-    "graphql-request": "^1.4.0"
+    "@types/chai": "^4.0.4",
+    "@types/mocha": "^2.2.43",
+    "@types/request": "^2.0.5",
+    "@types/request-promise": "^4.1.38",
+    "chai": "^4.1.2",
+    "graphql-request": "^1.4.0",
+    "mocha": "^4.0.1",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2",
+    "ts-node": "^3.3.0",
+    "typescript": "^2.5.3",
+    "xhr2": "^0.1.4"
   },
   "scripts": {
-    "test": "node index.js"
+    "test": "mocha -r ts-node/register spec/**/*.spec.ts"
   },
   "keywords": [
     "node",
